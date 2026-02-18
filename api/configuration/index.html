@@ -340,6 +340,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Configuration
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -357,6 +375,63 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remeta.configuration.Configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameter.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parameter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -435,6 +510,25 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remeta.configuration.Configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -460,7 +554,7 @@
 
 
 
-
+<a id="remeta.configuration.Configuration"></a>
     <div class="doc doc-contents first">
 
 
@@ -474,6 +568,10 @@
 cfg.&lt;some_setting&gt; = &lt;some_value&gt;
 rem = remeta.ReMeta(cfg)
 </code></pre>
+<p>To change parameters use:</p>
+<pre><code>cfg.param_&lt;param_name&gt;.&lt;param_attribute&gt; = &lt;value&gt;
+</code></pre>
+<p>See [<code>Parameter</code>][remeta.modelspec.Parameter] for more information.</p>
 </details>
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -1759,7 +1857,16 @@ have been passed via <code>true_params</code>.</p>
 <span class="normal">571</span>
 <span class="normal">572</span>
 <span class="normal">573</span>
-<span class="normal">574</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span>
+<span class="normal">579</span>
+<span class="normal">580</span>
+<span class="normal">581</span>
+<span class="normal">582</span>
+<span class="normal">583</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">ReprMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Configuration for the ReMeta toolbox</span>
@@ -1770,6 +1877,15 @@ have been passed via <code>true_params</code>.</p>
 <span class="sd">        cfg.&lt;some_setting&gt; = &lt;some_value&gt;</span>
 <span class="sd">        rem = remeta.ReMeta(cfg)</span>
 <span class="sd">        ```</span>
+
+<span class="sd">        To change parameters use:</span>
+<span class="sd">        ```</span>
+<span class="sd">        cfg.param_&lt;param_name&gt;.&lt;param_attribute&gt; = &lt;value&gt;</span>
+<span class="sd">        ```</span>
+
+<span class="sd">        See [`Parameter`][remeta.modelspec.Parameter] for more information.</span>
+
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1">### Important settings</span>
