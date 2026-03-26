@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://re-meta.github.io/api/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
     <url>
          <loc>https://re-meta.github.io/api/configuration/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
     <url>
          <loc>https://re-meta.github.io/api/model/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
     <url>
          <loc>https://re-meta.github.io/api/parameter/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
     <url>
          <loc>https://re-meta.github.io/api/plot/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
     <url>
          <loc>https://re-meta.github.io/api/simulation/</loc>
-         <lastmod>2026-03-20</lastmod>
+         <lastmod>2026-03-26</lastmod>
     </url>
 </urlset>
