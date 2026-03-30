@@ -20,6 +20,9 @@
     <loc>http://localhost:3000/type2</loc>
   </url>
   <url>
+    <loc>http://localhost:3000/stimulus-evidence</loc>
+  </url>
+  <url>
     <loc>http://localhost:3000/group-estimation-priors</loc>
   </url>
   <url>
