@@ -806,6 +806,72 @@ model_prediction: whether to show model-predicted values for comparison</p>
                   <code>True</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>max_levels_discrete</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>until <code>max_levels_discrete</code> evidence levels, plot data discretely</p>
+              </div>
+            </td>
+            <td>
+                  <code>10</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>discretization</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>In case of more than <max_levels_discrete> difficulty levels, anchor points are computed. To this aim, the
+ difficulty level dimension is divided in max_levels_discrete bins either linearly (discretization='linear')
+ or quantile-based (discretization='quantile').</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;linear&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>axis_mode</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>path_export</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>pass a file path to export a png figure</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
@@ -990,7 +1056,45 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="normal">262</span>
 <span class="normal">263</span>
 <span class="normal">264</span>
-<span class="normal">265</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_psychometric</span><span class="p">(</span>
+<span class="normal">265</span>
+<span class="normal">266</span>
+<span class="normal">267</span>
+<span class="normal">268</span>
+<span class="normal">269</span>
+<span class="normal">270</span>
+<span class="normal">271</span>
+<span class="normal">272</span>
+<span class="normal">273</span>
+<span class="normal">274</span>
+<span class="normal">275</span>
+<span class="normal">276</span>
+<span class="normal">277</span>
+<span class="normal">278</span>
+<span class="normal">279</span>
+<span class="normal">280</span>
+<span class="normal">281</span>
+<span class="normal">282</span>
+<span class="normal">283</span>
+<span class="normal">284</span>
+<span class="normal">285</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span>
+<span class="normal">289</span>
+<span class="normal">290</span>
+<span class="normal">291</span>
+<span class="normal">292</span>
+<span class="normal">293</span>
+<span class="normal">294</span>
+<span class="normal">295</span>
+<span class="normal">296</span>
+<span class="normal">297</span>
+<span class="normal">298</span>
+<span class="normal">299</span>
+<span class="normal">300</span>
+<span class="normal">301</span>
+<span class="normal">302</span>
+<span class="normal">303</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_psychometric</span><span class="p">(</span>
         <span class="n">stimuli_or_simulation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Simulation</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">type1_noise</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1004,6 +1108,9 @@ model_prediction: whether to show model-predicted values for comparison</p>
         <span class="n">model_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">highlight_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">errorbars</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">max_levels_discrete</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="n">discretization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;linear&#39;</span><span class="p">,</span>
+        <span class="n">axis_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">path_export</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot psychometric function.</span>
@@ -1043,6 +1150,13 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="sd">        model_only: Show the model prediction only (auto-set to True if no data are passed)</span>
 <span class="sd">        highlight_fit: Emphasize the fit over the data</span>
 <span class="sd">        errorbars: Whether to include error bars for empirical data (SD)</span>
+<span class="sd">        max_levels_discrete: until `max_levels_discrete` evidence levels, plot data discretely</span>
+<span class="sd">        discretization:</span>
+<span class="sd">             In case of more than &lt;max_levels_discrete&gt; difficulty levels, anchor points are computed. To this aim, the</span>
+<span class="sd">             difficulty level dimension is divided in max_levels_discrete bins either linearly (discretization=&#39;linear&#39;)</span>
+<span class="sd">             or quantile-based (discretization=&#39;quantile&#39;).</span>
+<span class="sd">        axis_mode: if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</span>
+<span class="sd">        path_export: pass a file path to export a png figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">type1_noise</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1100,31 +1214,57 @@ model_prediction: whether to show model-predicted values for comparison</p>
         <span class="n">posterior_pos</span> <span class="o">=</span> <span class="n">cdf</span><span class="p">(</span><span class="n">xrange_pos</span><span class="p">,</span> <span class="n">type1_noise</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">type1_thresh</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">type1_bias</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
 
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">model_only</span><span class="p">:</span>
         <span class="n">stimulus_ids</span> <span class="o">=</span> <span class="p">(</span><span class="n">stimuli</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-        <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stimuli</span><span class="p">)</span>
-        <span class="n">choiceprob_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">choices</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">==</span>
-                                           <span class="n">stimulus_ids</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)])</span>
-                                   <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]])</span>
-        <span class="n">choiceprob_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">choices</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">==</span>
-                                           <span class="n">stimulus_ids</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)])</span>
-                                   <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]])</span>
+        <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stimuli</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">levels</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">max_levels_discrete</span><span class="o">*</span><span class="mi">2</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">discretization</span> <span class="o">==</span> <span class="s1">&#39;linear&#39;</span><span class="p">:</span>
+                <span class="n">edges_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">max_levels_discrete</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+                <span class="n">edges_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">max_levels_discrete</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">discretization</span> <span class="o">==</span> <span class="s1">&#39;quantile&#39;</span><span class="p">:</span>
+                <span class="n">edges_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">max_levels_discrete</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">edges_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">max_levels_discrete</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">centers_neg</span> <span class="o">=</span> <span class="n">edges_neg</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edges_neg</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">centers_pos</span> <span class="o">=</span> <span class="n">edges_pos</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">edges_pos</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+            <span class="n">stimuli_discrete</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">stimuli</span><span class="p">)</span>
+            <span class="n">stimuli_discrete</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">stimuli</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">edges_neg</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_neg</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="mi">1</span><span class="p">)))</span> <span class="o">-</span> <span class="n">max_levels_discrete</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">stimuli_discrete</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">digitize</span><span class="p">(</span><span class="n">stimuli</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">],</span> <span class="n">edges_pos</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="o">-</span><span class="mf">1e-8</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">edges_pos</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="p">),</span> <span class="mf">1e-8</span><span class="p">)))</span>
+            <span class="n">levels_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stimuli_discrete</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]))</span>
+            <span class="n">levels_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">stimuli_discrete</span><span class="p">[</span><span class="n">stimuli</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]))</span>
+            <span class="n">mask_neg</span> <span class="o">=</span> <span class="p">[</span><span class="n">stimuli_discrete</span> <span class="o">==</span> <span class="n">level</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels_neg</span><span class="p">]</span>
+            <span class="n">mask_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">stimuli_discrete</span> <span class="o">==</span> <span class="n">level</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels_pos</span><span class="p">]</span>
+            <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">(([</span><span class="n">centers_neg</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">max_levels_discrete</span> <span class="o">+</span> <span class="n">v</span><span class="p">)]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels_neg</span><span class="p">],</span>
+                                <span class="p">[</span><span class="n">centers_pos</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels_pos</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mask_neg</span> <span class="o">=</span> <span class="p">[</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">level</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]]</span>
+            <span class="n">mask_pos</span> <span class="o">=</span> <span class="p">[</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">level</span> <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]]</span>
+        <span class="n">choiceprob_neg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">choices</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">==</span>
+                                           <span class="n">stimulus_ids</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)])</span>
+                                   <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">mask_neg</span><span class="p">])</span>
+        <span class="n">choiceprob_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">choices</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">==</span>
+                                           <span class="n">stimulus_ids</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)])</span>
+                                   <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">mask_pos</span><span class="p">])</span>
         <span class="k">if</span> <span class="n">errorbars</span><span class="p">:</span>
-            <span class="n">choiceprob_neg_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sem</span><span class="p">(</span><span class="n">choices</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">==</span>
-                                               <span class="n">stimulus_ids</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)])</span>
-                                       <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]])</span>
-            <span class="n">choiceprob_pos_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sem</span><span class="p">(</span><span class="n">choices</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">==</span>
-                                               <span class="n">stimulus_ids</span><span class="p">[(</span><span class="n">stimuli</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)])</span>
-                                       <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]])</span>
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
+                <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">RuntimeWarning</span><span class="p">)</span>
+                <span class="n">choiceprob_neg_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sem</span><span class="p">(</span><span class="n">choices</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">==</span>
+                                                   <span class="n">stimulus_ids</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)])</span>
+                                           <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">mask_neg</span><span class="p">])</span>
+                <span class="n">choiceprob_pos_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sem</span><span class="p">(</span><span class="n">choices</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)]</span> <span class="o">==</span>
+                                                   <span class="n">stimulus_ids</span><span class="p">[</span><span class="n">mask</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">stimulus_ids</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)])</span>
+                                           <span class="k">for</span> <span class="n">mask</span> <span class="ow">in</span> <span class="n">mask_pos</span><span class="p">])</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">choiceprob_neg_se</span><span class="p">,</span> <span class="n">choiceprob_pos_se</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">levels</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">1</span><span class="o">-</span><span class="n">choiceprob_neg</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">choiceprob_neg_se</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_data</span><span class="p">,</span> <span class="n">mec</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="k">if</span> <span class="n">model_prediction</span> <span class="k">else</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span>
@@ -1150,7 +1290,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Choice probability $S^+$&#39;</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.2g</span><span class="s1">&#39;</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">model_prediction</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">axis_mode</span><span class="p">:</span>
         <span class="n">anot_type1</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
             <span class="c1"># if (cfg is None and k in params) or (cfg is not None and getattr(cfg, f&quot;enable_param_{k}&quot;)) and k.startswith(&#39;type1_&#39;):</span>
@@ -1162,10 +1302,12 @@ model_prediction: whether to show model-predicted values for comparison</p>
                     <span class="n">anot_type1</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">fmp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">]</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.045</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Parameters:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">anot_type1</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
                  <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ec</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-    <span class="n">set_fontsize</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
 
-    <span class="c1"># ax_leg.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="c1"># ax_leg.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">set_fontsize</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">path_export</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">path_export</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">pad_inches</span><span class="o">=</span><span class="mf">0.02</span><span class="p">)</span>
@@ -1515,51 +1657,45 @@ model_prediction: whether to show model-predicted values for comparison</p>
                   <code>False</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>axis_mode</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>path_export</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>pass a file path to export a png figure</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/plotting.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">268</span>
-<span class="normal">269</span>
-<span class="normal">270</span>
-<span class="normal">271</span>
-<span class="normal">272</span>
-<span class="normal">273</span>
-<span class="normal">274</span>
-<span class="normal">275</span>
-<span class="normal">276</span>
-<span class="normal">277</span>
-<span class="normal">278</span>
-<span class="normal">279</span>
-<span class="normal">280</span>
-<span class="normal">281</span>
-<span class="normal">282</span>
-<span class="normal">283</span>
-<span class="normal">284</span>
-<span class="normal">285</span>
-<span class="normal">286</span>
-<span class="normal">287</span>
-<span class="normal">288</span>
-<span class="normal">289</span>
-<span class="normal">290</span>
-<span class="normal">291</span>
-<span class="normal">292</span>
-<span class="normal">293</span>
-<span class="normal">294</span>
-<span class="normal">295</span>
-<span class="normal">296</span>
-<span class="normal">297</span>
-<span class="normal">298</span>
-<span class="normal">299</span>
-<span class="normal">300</span>
-<span class="normal">301</span>
-<span class="normal">302</span>
-<span class="normal">303</span>
-<span class="normal">304</span>
-<span class="normal">305</span>
-<span class="normal">306</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">306</span>
 <span class="normal">307</span>
 <span class="normal">308</span>
 <span class="normal">309</span>
@@ -1811,7 +1947,53 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="normal">555</span>
 <span class="normal">556</span>
 <span class="normal">557</span>
-<span class="normal">558</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
+<span class="normal">558</span>
+<span class="normal">559</span>
+<span class="normal">560</span>
+<span class="normal">561</span>
+<span class="normal">562</span>
+<span class="normal">563</span>
+<span class="normal">564</span>
+<span class="normal">565</span>
+<span class="normal">566</span>
+<span class="normal">567</span>
+<span class="normal">568</span>
+<span class="normal">569</span>
+<span class="normal">570</span>
+<span class="normal">571</span>
+<span class="normal">572</span>
+<span class="normal">573</span>
+<span class="normal">574</span>
+<span class="normal">575</span>
+<span class="normal">576</span>
+<span class="normal">577</span>
+<span class="normal">578</span>
+<span class="normal">579</span>
+<span class="normal">580</span>
+<span class="normal">581</span>
+<span class="normal">582</span>
+<span class="normal">583</span>
+<span class="normal">584</span>
+<span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
         <span class="n">stimuli_or_simulation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Simulation</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">confidence</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1831,6 +2013,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
         <span class="n">model_prediction_nsamples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="n">model_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">model_prediction_disable_type2_noise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">axis_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">path_export</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Plot the relationship between stimulus levels and confidence.</span>
@@ -1876,6 +2059,8 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="sd">        model_prediction_nsamples: number of samples used to generate model predictions</span>
 <span class="sd">        model_only: Show the model prediction only (auto-set to True if no data are passed)</span>
 <span class="sd">        model_prediction_disable_type2_noise: plot model prediction with ~0 metacognitive noise</span>
+<span class="sd">        axis_mode: if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</span>
+<span class="sd">        path_export: pass a file path to export a png figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">stimuli_or_simulation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">confidence</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># assume first parameter is a simulated dataset</span>
@@ -1921,13 +2106,16 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="k">if</span> <span class="n">probability_correct</span><span class="p">:</span>
         <span class="n">confidence</span> <span class="o">=</span> <span class="p">(</span><span class="n">confidence</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.2g</span><span class="s1">&#39;</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="n">stim_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -2083,21 +2271,23 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Stimulus ($x$)&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Subjective prob. correct&#39;</span> <span class="k">if</span> <span class="n">probability_correct</span> <span class="k">else</span> <span class="s1">&#39;Confidence ($C$)&#39;</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
-        <span class="n">anot_type2</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;type2_&#39;</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">listlike</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-                    <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">fmp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
-                    <span class="n">val_break</span> <span class="o">=</span> <span class="s2">&quot;,$</span><span class="se">\n</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
-                    <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">val_break</span><span class="si">}</span><span class="s2">]$&quot;</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">fmp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.045</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">separate_by_accuracy</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Type 2 parameters:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">anot_type2</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                 <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ec</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
+            <span class="n">anot_type2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;type2_&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">listlike</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                        <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">fmp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+                        <span class="n">val_break</span> <span class="o">=</span> <span class="s2">&quot;,$</span><span class="se">\n</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+                        <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">val_break</span><span class="si">}</span><span class="s2">]$&quot;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">fmp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.045</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="n">separate_by_accuracy</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Type 2 parameters:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">anot_type2</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ec</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 
-    <span class="c1"># plt.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># plt.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">set_fontsize</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">path_export</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -2433,59 +2623,45 @@ model_prediction: whether to show model-predicted values for comparison</p>
                   <code>10000</code>
             </td>
           </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>axis_mode</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>path_export</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span> | None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>pass a file path to export a png figure</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
       </tbody>
     </table>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/plotting.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">563</span>
-<span class="normal">564</span>
-<span class="normal">565</span>
-<span class="normal">566</span>
-<span class="normal">567</span>
-<span class="normal">568</span>
-<span class="normal">569</span>
-<span class="normal">570</span>
-<span class="normal">571</span>
-<span class="normal">572</span>
-<span class="normal">573</span>
-<span class="normal">574</span>
-<span class="normal">575</span>
-<span class="normal">576</span>
-<span class="normal">577</span>
-<span class="normal">578</span>
-<span class="normal">579</span>
-<span class="normal">580</span>
-<span class="normal">581</span>
-<span class="normal">582</span>
-<span class="normal">583</span>
-<span class="normal">584</span>
-<span class="normal">585</span>
-<span class="normal">586</span>
-<span class="normal">587</span>
-<span class="normal">588</span>
-<span class="normal">589</span>
-<span class="normal">590</span>
-<span class="normal">591</span>
-<span class="normal">592</span>
-<span class="normal">593</span>
-<span class="normal">594</span>
-<span class="normal">595</span>
-<span class="normal">596</span>
-<span class="normal">597</span>
-<span class="normal">598</span>
-<span class="normal">599</span>
-<span class="normal">600</span>
-<span class="normal">601</span>
-<span class="normal">602</span>
-<span class="normal">603</span>
-<span class="normal">604</span>
-<span class="normal">605</span>
-<span class="normal">606</span>
-<span class="normal">607</span>
-<span class="normal">608</span>
-<span class="normal">609</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">609</span>
 <span class="normal">610</span>
 <span class="normal">611</span>
 <span class="normal">612</span>
@@ -2693,7 +2869,60 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="normal">814</span>
 <span class="normal">815</span>
 <span class="normal">816</span>
-<span class="normal">817</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
+<span class="normal">817</span>
+<span class="normal">818</span>
+<span class="normal">819</span>
+<span class="normal">820</span>
+<span class="normal">821</span>
+<span class="normal">822</span>
+<span class="normal">823</span>
+<span class="normal">824</span>
+<span class="normal">825</span>
+<span class="normal">826</span>
+<span class="normal">827</span>
+<span class="normal">828</span>
+<span class="normal">829</span>
+<span class="normal">830</span>
+<span class="normal">831</span>
+<span class="normal">832</span>
+<span class="normal">833</span>
+<span class="normal">834</span>
+<span class="normal">835</span>
+<span class="normal">836</span>
+<span class="normal">837</span>
+<span class="normal">838</span>
+<span class="normal">839</span>
+<span class="normal">840</span>
+<span class="normal">841</span>
+<span class="normal">842</span>
+<span class="normal">843</span>
+<span class="normal">844</span>
+<span class="normal">845</span>
+<span class="normal">846</span>
+<span class="normal">847</span>
+<span class="normal">848</span>
+<span class="normal">849</span>
+<span class="normal">850</span>
+<span class="normal">851</span>
+<span class="normal">852</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span>
+<span class="normal">857</span>
+<span class="normal">858</span>
+<span class="normal">859</span>
+<span class="normal">860</span>
+<span class="normal">861</span>
+<span class="normal">862</span>
+<span class="normal">863</span>
+<span class="normal">864</span>
+<span class="normal">865</span>
+<span class="normal">866</span>
+<span class="normal">867</span>
+<span class="normal">868</span>
+<span class="normal">869</span>
+<span class="normal">870</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
         <span class="n">confidence_or_simulation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Simulation</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stimuli</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2712,6 +2941,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
         <span class="n">separate_by_category</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">separate_by_accuracy</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">model_prediction_nsamples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
+        <span class="n">axis_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">path_export</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Plot the relationship between stimulus levels and confidence.</span>
@@ -2758,6 +2988,8 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="sd">        separate_by_category: separate histograms for the two stimulus categories</span>
 <span class="sd">        separate_by_accuracy: separate histograms for correct and incorrect responses</span>
 <span class="sd">        model_prediction_nsamples: number of samples used to generate model predictions</span>
+<span class="sd">        axis_mode: if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</span>
+<span class="sd">        path_export: pass a file path to export a png figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">separate_by_accuracy</span><span class="p">:</span>
@@ -2811,13 +3043,16 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="k">if</span> <span class="n">stim_max</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stim_max</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">stimuli</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">stimuli</span><span class="p">))</span>
 
-    <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
-    <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-    <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-    <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">))</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">bottom</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">wspace</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;off&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">FormatStrFormatter</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%.3g</span><span class="s1">&#39;</span><span class="p">))</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">model_only</span><span class="p">:</span>
@@ -2927,22 +3162,23 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Probability&#39;</span> <span class="k">if</span> <span class="n">model_only</span> <span class="k">else</span> <span class="s1">&#39;Count&#39;</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
-        <span class="n">anot_type2</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">cfg</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># keep in case cfg is implemented in the future</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
-            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;type2_&#39;</span><span class="p">):</span>
-                <span class="k">if</span> <span class="n">listlike</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
-                    <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">fmp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
-                    <span class="n">val_break</span> <span class="o">=</span> <span class="s2">&quot;,$</span><span class="se">\n</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
-                    <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">val_break</span><span class="si">}</span><span class="s2">]$&quot;</span><span class="p">]</span>
-                <span class="k">else</span><span class="p">:</span>
-                    <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">fmp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.055</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="n">separate_by_accuracy</span> <span class="o">|</span> <span class="n">separate_by_category</span><span class="p">),</span> <span class="sa">r</span><span class="s1">&#39;Type 2 parameters:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">anot_type2</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
-                 <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ec</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">axis_mode</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
+            <span class="n">anot_type2</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># keep in case cfg is implemented in the future</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;type2_&#39;</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">listlike</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                        <span class="n">entries</span> <span class="o">=</span> <span class="p">[</span><span class="n">fmp</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">v</span><span class="p">]</span>
+                        <span class="n">val_break</span> <span class="o">=</span> <span class="s2">&quot;,$</span><span class="se">\n</span><span class="s2">$&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">entries</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="mi">3</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">entries</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span>
+                        <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">val_break</span><span class="si">}</span><span class="s2">]$&quot;</span><span class="p">]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">anot_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">symbols</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2">=</span><span class="si">{</span><span class="n">fmp</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">]</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.055</span><span class="p">,</span> <span class="mf">0.1</span><span class="o">-</span><span class="mf">0.2</span><span class="o">*</span><span class="p">(</span><span class="n">separate_by_accuracy</span> <span class="o">|</span> <span class="n">separate_by_category</span><span class="p">),</span> <span class="sa">r</span><span class="s1">&#39;Type 2 parameters:&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">anot_type2</span><span class="p">),</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+                     <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">fc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">ec</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 
-    <span class="c1"># plt.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
-    <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># plt.legend(bbox_to_anchor=(1.01, 1), loc=&quot;upper left&quot;, fontsize=11, handlelength=1)</span>
+        <span class="n">ax_leg</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="o">*</span><span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">(),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">handlelength</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="n">set_fontsize</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">tick</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
 

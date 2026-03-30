@@ -630,11 +630,11 @@ number of confidence criteria (=number of discrete confidence ratings minus 1).<
                 <code>bounds</code>
             </td>
             <td>
-                  <code><span title="tuple">tuple</span>[<span title="float">float</span>, <span title="float">float</span>]</code>
+                  <code><span title="list">list</span>[<span title="float">float</span>]</code>
             </td>
             <td>
               <div class="doc-md-description">
-                <p>Parameter bounds of the form (lower bound, upper bound).</p>
+                <p>Parameter bounds of the form [lower bound, upper bound].</p>
               </div>
             </td>
             <td>
@@ -903,7 +903,7 @@ For other parameters, it may specify a function that is parameterized.</p>
 <span class="sd">        guess:</span>
 <span class="sd">            Initial guess for parameter optimization</span>
 <span class="sd">        bounds:</span>
-<span class="sd">            Parameter bounds of the form (lower bound, upper bound).</span>
+<span class="sd">            Parameter bounds of the form [lower bound, upper bound].</span>
 <span class="sd">        grid_range:</span>
 <span class="sd">            1-d grid for initial gridsearch in the parameter optimization procedure.</span>
 <span class="sd">        group:</span>
@@ -929,7 +929,7 @@ For other parameters, it may specify a function that is parameterized.</p>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">enable</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">guess</span><span class="p">:</span> <span class="nb">float</span>  <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">bounds</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">bounds</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">grid_range</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">group</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">prior</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
