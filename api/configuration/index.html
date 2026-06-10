@@ -637,6 +637,24 @@ Possible values: <code>'readout'</code>, <code>'report'</code>, <code>'temperatu
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>optim_force_hessian_uncertainty</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If <code>True</code>, force an estimation of parameter uncertainty even if the Hessian of the 
+likelihood is not positive definite. Enforcement is performed via ridge regularization. 
+Only activate if you know what you're doing.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>optim_type1_gridsearch</code>
             </td>
             <td>
@@ -700,6 +718,82 @@ If provided as tuple/list, test different solvers and take the best.</p>
             </td>
             <td>
                   <code>&#39;trust-constr&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type1_linearize</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Linearize continuous stimulus (magnitude) information before fitting. For details, see the method. 
+<code>util.linearize_stimulus_evidence</code></p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type1_linearize_kwargs</code>
+            </td>
+            <td>
+                  <code><span title="dict">dict</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Keyword arguments passed to <code>util.linearize_stimulus_evidence</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type1_random_effect_method</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Random-effects group estimation method. <code>'measurement_error_map'</code> first estimates a group prior from
+likelihood-only subject estimates and their Hessian-based uncertainty, treating subject estimates as noisy 
+observations of latent subject effects, and then performs a final nonlinear subject-level MAP optimization with
+that fitted prior held fixed. This method typically pulls parameter estimates stronger towards the group mean.
+<code>'iterative_map'</code> uses alternating empirical-Bayes MAP procedure: subject parameters are repeatedly 
+re-estimated under the current group prior, then the group mean and standard deviation are updated from the 
+current subject MAP estimates.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;measurement_error_map&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type1_include_posterior_variance</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Only relevant for random-effects modeling with the method <code>'iterative_map'</code>: Whether to include the 
+subject-level posterior variance in the  random-effect population variance update. If True, the population 
+variance is updated from E[(u_s - mu)^2 | data], approximated as the squared deviation of each subject MAP 
+estimate plus its posterior variance. If False, the update uses only the between-subject variance of the 
+MAP estimates. Omitting the posterior variance yields a narrower empirical prior and therefore stronger 
+shrinkage of individual random-effect estimates toward the group mean.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -800,6 +894,49 @@ If provided as tuple/list, test different eps parameters and take the best</p>
             </td>
             <td>
                   <code>1</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type2_random_effect_method</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Random-effects group estimation method. <code>'measurement_error_map'</code> first estimates a group prior from
+likelihood-only subject estimates and their Hessian-based uncertainty, treating subject estimates as noisy 
+observations of latent subject effects, and then performs a final nonlinear subject-level MAP optimization with
+that fitted prior held fixed. This method typically pulls parameter estimates stronger towards the group mean.
+<code>'iterative_map'</code> uses alternating empirical-Bayes MAP procedure: subject parameters are repeatedly 
+re-estimated under the current group prior, then the group mean and standard deviation are updated from the 
+current subject MAP estimates.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;measurement_error_map&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>optim_type2_include_posterior_variance</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Only relevant for random-effects modeling with the method <code>'iterative_map'</code>: Whether to include the 
+subject-level posterior variance in the  random-effect population variance update. If True, the population 
+variance is updated from E[(u_s - mu)^2 | data], approximated as the squared deviation of each subject MAP 
+estimate plus its posterior variance. If False, the update uses only the between-subject variance of the 
+MAP estimates. Omitting the posterior variance yields a narrower empirical prior and therefore stronger 
+shrinkage of individual random-effect estimates toward the group mean.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1866,7 +2003,61 @@ have been passed via <code>true_params</code>.</p>
 <span class="normal">580</span>
 <span class="normal">581</span>
 <span class="normal">582</span>
-<span class="normal">583</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
+<span class="normal">583</span>
+<span class="normal">584</span>
+<span class="normal">585</span>
+<span class="normal">586</span>
+<span class="normal">587</span>
+<span class="normal">588</span>
+<span class="normal">589</span>
+<span class="normal">590</span>
+<span class="normal">591</span>
+<span class="normal">592</span>
+<span class="normal">593</span>
+<span class="normal">594</span>
+<span class="normal">595</span>
+<span class="normal">596</span>
+<span class="normal">597</span>
+<span class="normal">598</span>
+<span class="normal">599</span>
+<span class="normal">600</span>
+<span class="normal">601</span>
+<span class="normal">602</span>
+<span class="normal">603</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span>
+<span class="normal">616</span>
+<span class="normal">617</span>
+<span class="normal">618</span>
+<span class="normal">619</span>
+<span class="normal">620</span>
+<span class="normal">621</span>
+<span class="normal">622</span>
+<span class="normal">623</span>
+<span class="normal">624</span>
+<span class="normal">625</span>
+<span class="normal">626</span>
+<span class="normal">627</span>
+<span class="normal">628</span>
+<span class="normal">629</span>
+<span class="normal">630</span>
+<span class="normal">631</span>
+<span class="normal">632</span>
+<span class="normal">633</span>
+<span class="normal">634</span>
+<span class="normal">635</span>
+<span class="normal">636</span>
+<span class="normal">637</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">ReprMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Configuration for the ReMeta toolbox</span>
@@ -1904,7 +2095,13 @@ have been passed via <code>true_params</code>.</p>
 <span class="s2">        If `True`, only fit type 1 data. No confidence data needs to be passed to `fit()` in this case.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
+    <span class="c1">### General optimization settings</span>
 
+    <span class="n">optim_force_hessian_uncertainty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        If `True`, force an estimation of parameter uncertainty even if the Hessian of the </span>
+<span class="s2">        likelihood is not positive definite. Enforcement is performed via ridge regularization. </span>
+<span class="s2">        Only activate if you know what you&#39;re doing.&quot;&quot;&quot;</span>
+    <span class="p">})</span>
 
     <span class="c1">### Type 1 optimization</span>
 
@@ -1931,6 +2128,34 @@ have been passed via <code>true_params</code>.</p>
 <span class="s2">        If provided as tuple/list, test different solvers and take the best.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
+    <span class="n">optim_type1_linearize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Linearize continuous stimulus (magnitude) information before fitting. For details, see the method. </span>
+<span class="s2">        `util.linearize_stimulus_evidence`&quot;&quot;&quot;</span>
+    <span class="p">})</span>
+
+    <span class="n">optim_type1_linearize_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Keyword arguments passed to `util.linearize_stimulus_evidence`.&quot;&quot;&quot;</span>
+    <span class="p">})</span>
+
+    <span class="n">optim_type1_random_effect_method</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;measurement_error_map&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Random-effects group estimation method. `&#39;measurement_error_map&#39;` first estimates a group prior from</span>
+<span class="s2">        likelihood-only subject estimates and their Hessian-based uncertainty, treating subject estimates as noisy </span>
+<span class="s2">        observations of latent subject effects, and then performs a final nonlinear subject-level MAP optimization with</span>
+<span class="s2">        that fitted prior held fixed. This method typically pulls parameter estimates stronger towards the group mean.</span>
+<span class="s2">        ``&#39;iterative_map&#39;`` uses alternating empirical-Bayes MAP procedure: subject parameters are repeatedly </span>
+<span class="s2">        re-estimated under the current group prior, then the group mean and standard deviation are updated from the </span>
+<span class="s2">        current subject MAP estimates.</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="p">})</span>
+
+    <span class="n">optim_type1_include_posterior_variance</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Only relevant for random-effects modeling with the method `&#39;iterative_map&#39;`: Whether to include the </span>
+<span class="s2">        subject-level posterior variance in the  random-effect population variance update. If True, the population </span>
+<span class="s2">        variance is updated from E[(u_s - mu)^2 | data], approximated as the squared deviation of each subject MAP </span>
+<span class="s2">        estimate plus its posterior variance. If False, the update uses only the between-subject variance of the </span>
+<span class="s2">        MAP estimates. Omitting the posterior variance yields a narrower empirical prior and therefore stronger </span>
+<span class="s2">        shrinkage of individual random-effect estimates toward the group mean.&quot;&quot;&quot;</span>
+    <span class="p">})</span>
 
 
     <span class="c1">### Type 2 optimization</span>
@@ -1965,6 +2190,26 @@ have been passed via <code>true_params</code>.</p>
 
     <span class="n">optim_num_cores</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Number of cores used for parameter estimation (-1 for all cores minus 1).&quot;&quot;&quot;</span>
+    <span class="p">})</span>
+
+    <span class="n">optim_type2_random_effect_method</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s1">&#39;measurement_error_map&#39;</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Random-effects group estimation method. `&#39;measurement_error_map&#39;` first estimates a group prior from</span>
+<span class="s2">        likelihood-only subject estimates and their Hessian-based uncertainty, treating subject estimates as noisy </span>
+<span class="s2">        observations of latent subject effects, and then performs a final nonlinear subject-level MAP optimization with</span>
+<span class="s2">        that fitted prior held fixed. This method typically pulls parameter estimates stronger towards the group mean.</span>
+<span class="s2">        ``&#39;iterative_map&#39;`` uses alternating empirical-Bayes MAP procedure: subject parameters are repeatedly </span>
+<span class="s2">        re-estimated under the current group prior, then the group mean and standard deviation are updated from the </span>
+<span class="s2">        current subject MAP estimates.</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+    <span class="p">})</span>
+
+    <span class="n">optim_type2_include_posterior_variance</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Only relevant for random-effects modeling with the method `&#39;iterative_map&#39;`: Whether to include the </span>
+<span class="s2">        subject-level posterior variance in the  random-effect population variance update. If True, the population </span>
+<span class="s2">        variance is updated from E[(u_s - mu)^2 | data], approximated as the squared deviation of each subject MAP </span>
+<span class="s2">        estimate plus its posterior variance. If False, the update uses only the between-subject variance of the </span>
+<span class="s2">        MAP estimates. Omitting the posterior variance yields a narrower empirical prior and therefore stronger </span>
+<span class="s2">        shrinkage of individual random-effect estimates toward the group mean.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
 
@@ -2139,7 +2384,7 @@ have been passed via <code>true_params</code>.</p>
                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Multiprocessing on dill is not installed. Setting optim_num_cores to 1.&#39;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span> <span class="o">=</span> <span class="mi">1</span>
 
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">multiprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">cpu_count</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_optim_num_cores</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">cpu_count</span><span class="p">()</span> <span class="ow">or</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> \
                 <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">optim_num_cores</span>

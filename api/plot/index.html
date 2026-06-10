@@ -1659,6 +1659,22 @@ model_prediction: whether to show model-predicted values for comparison</p>
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>model_uncertainty</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>plot standard deviation of model prediction</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>axis_mode</code>
             </td>
             <td>
@@ -1993,7 +2009,18 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="normal">601</span>
 <span class="normal">602</span>
 <span class="normal">603</span>
-<span class="normal">604</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
+<span class="normal">604</span>
+<span class="normal">605</span>
+<span class="normal">606</span>
+<span class="normal">607</span>
+<span class="normal">608</span>
+<span class="normal">609</span>
+<span class="normal">610</span>
+<span class="normal">611</span>
+<span class="normal">612</span>
+<span class="normal">613</span>
+<span class="normal">614</span>
+<span class="normal">615</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
         <span class="n">stimuli_or_simulation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Simulation</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">confidence</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2013,6 +2040,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
         <span class="n">model_prediction_nsamples</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span>
         <span class="n">model_only</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">model_prediction_disable_type2_noise</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">model_uncertainty</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">axis_mode</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">path_export</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2059,6 +2087,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="sd">        model_prediction_nsamples: number of samples used to generate model predictions</span>
 <span class="sd">        model_only: Show the model prediction only (auto-set to True if no data are passed)</span>
 <span class="sd">        model_prediction_disable_type2_noise: plot model prediction with ~0 metacognitive noise</span>
+<span class="sd">        model_uncertainty: plot standard deviation of model prediction</span>
 <span class="sd">        axis_mode: if True, do not create a new matplotlib figure (allows for subplot integration in existing figures)</span>
 <span class="sd">        path_export: pass a file path to export a png figure</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -2255,12 +2284,21 @@ model_prediction: whether to show model-predicted values for comparison</p>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">c_conf_inc</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_inc</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Model prediction</span><span class="se">\n</span><span class="s1">(incorrect)&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
                      <span class="c1"># label=&#39;Model prediction&#39; + (r&quot;($\sigma_2=0$)&quot; if model_prediction_disable_type2_noise else &quot;&quot;)+&#39;\n(incorrect)&#39;, alpha=0.5)</span>
+            <span class="k">if</span> <span class="n">model_uncertainty</span><span class="p">:</span>
+                <span class="n">c_conf_inc_sd</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_conf_inc_</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">model_prediction_nsamples</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">c_conf_cor_sd</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_conf_cor_</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">model_prediction_nsamples</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">c_conf_inc</span><span class="o">-</span><span class="n">c_conf_inc_sd</span><span class="p">,</span> <span class="n">c_conf_inc</span><span class="o">+</span><span class="n">c_conf_inc_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_inc</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">c_conf_cor</span><span class="o">-</span><span class="n">c_conf_cor_sd</span><span class="p">,</span> <span class="n">c_conf_cor</span><span class="o">+</span><span class="n">c_conf_cor_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_cor</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
             <span class="n">conf_min_model</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">c_conf_inc</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">c_conf_cor</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">c_conf_final</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">c_conf</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">model_prediction_nsamples</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
+            <span class="n">c_conf_mean</span> <span class="o">=</span> <span class="n">c_conf</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">c_conf_final</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">c_conf_mean</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="n">model_prediction_nsamples</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
             <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">c_conf_final</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_model</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
                      <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Model prediction&#39;</span><span class="p">)</span>
                      <span class="c1"># label=f&#39;Model prediction&#39; + (r&quot;($\sigma_2=0$)&quot; if model_prediction_disable_type2_noise else &quot;&quot;))</span>
+            <span class="k">if</span> <span class="n">model_uncertainty</span><span class="p">:</span>
+                <span class="n">c_conf_sd</span> <span class="o">=</span> <span class="n">gaussian_filter1d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">c_conf</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">sigma</span><span class="o">=</span><span class="n">model_prediction_nsamples</span><span class="o">/</span><span class="mi">20</span><span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">levels</span><span class="p">,</span> <span class="n">c_conf_final</span><span class="o">-</span><span class="n">c_conf_sd</span><span class="p">,</span> <span class="n">c_conf_final</span><span class="o">+</span><span class="n">c_conf_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_model</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ec</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
             <span class="n">conf_min_model</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">c_conf_final</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.05</span><span class="o">*</span><span class="n">stim_max</span><span class="p">,</span> <span class="mf">1.05</span><span class="o">*</span><span class="n">stim_max</span><span class="p">)</span>
@@ -2661,18 +2699,7 @@ model_prediction: whether to show model-predicted values for comparison</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/plotting.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">609</span>
-<span class="normal">610</span>
-<span class="normal">611</span>
-<span class="normal">612</span>
-<span class="normal">613</span>
-<span class="normal">614</span>
-<span class="normal">615</span>
-<span class="normal">616</span>
-<span class="normal">617</span>
-<span class="normal">618</span>
-<span class="normal">619</span>
-<span class="normal">620</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">620</span>
 <span class="normal">621</span>
 <span class="normal">622</span>
 <span class="normal">623</span>
@@ -2922,7 +2949,26 @@ model_prediction: whether to show model-predicted values for comparison</p>
 <span class="normal">867</span>
 <span class="normal">868</span>
 <span class="normal">869</span>
-<span class="normal">870</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
+<span class="normal">870</span>
+<span class="normal">871</span>
+<span class="normal">872</span>
+<span class="normal">873</span>
+<span class="normal">874</span>
+<span class="normal">875</span>
+<span class="normal">876</span>
+<span class="normal">877</span>
+<span class="normal">878</span>
+<span class="normal">879</span>
+<span class="normal">880</span>
+<span class="normal">881</span>
+<span class="normal">882</span>
+<span class="normal">883</span>
+<span class="normal">884</span>
+<span class="normal">885</span>
+<span class="normal">886</span>
+<span class="normal">887</span>
+<span class="normal">888</span>
+<span class="normal">889</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
         <span class="n">confidence_or_simulation</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">Simulation</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stimuli</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3058,7 +3104,8 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">model_only</span><span class="p">:</span>
         <span class="n">conf_levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">confidence</span><span class="p">))</span>
         <span class="n">n_conf_levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">conf_levels</span><span class="p">)</span>
-        <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_conf_levels</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_conf_levels</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">conf_levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">conf_levels</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="c1"># bins = np.linspace(0, 1, n_conf_levels+1) if n_conf_levels &gt;= 8 else np.hstack((0, conf_levels[1:] - np.diff(conf_levels) / 2, 1))</span>
+        <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="k">if</span> <span class="n">n_conf_levels</span> <span class="o">&gt;=</span> <span class="mi">8</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">conf_levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">conf_levels</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="n">separate_by_category</span><span class="p">:</span>
             <span class="n">counts0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">confidence</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">stimuli</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -3091,9 +3138,12 @@ model_prediction: whether to show model-predicted values for comparison</p>
     <span class="k">if</span> <span class="n">model_prediction</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">model_only</span><span class="p">:</span>
             <span class="n">_nsamples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">model_prediction_nsamples</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-            <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">_nsamples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">confidence</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">model_only</span> <span class="ow">or</span> <span class="s1">&#39;type2_criteria&#39;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+
         <span class="n">stim_min</span> <span class="o">=</span> <span class="n">stim_max</span> <span class="o">/</span> <span class="n">_nsamples</span>
         <span class="n">levels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">stim_max</span><span class="p">,</span> <span class="o">-</span><span class="n">stim_min</span><span class="p">,</span> <span class="n">_nsamples</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">stim_min</span><span class="p">,</span> <span class="n">stim_max</span><span class="p">,</span> <span class="n">_nsamples</span><span class="p">)))</span>
         <span class="c1"># y_decval = stimulus_to_decision_value(levels, params, return_only_decval=True)</span>
@@ -3109,6 +3159,10 @@ model_prediction: whether to show model-predicted values for comparison</p>
             <span class="n">silence_warnings</span><span class="o">=</span><span class="kc">True</span>
         <span class="p">)</span>
         <span class="n">c_conf</span> <span class="o">=</span> <span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">confidence</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">probability_correct</span> <span class="k">else</span> <span class="n">ds</span><span class="o">.</span><span class="n">confidence</span>
+
+        <span class="c1"># if &#39;type2_criteria&#39; in params:</span>
+        <span class="c1">#     # bins = np.hstack((0, params[&#39;type2_criteria&#39;], 1))</span>
+        <span class="c1">#     bins = np.hstack((0, np.unique(c_conf)[1:] - np.diff(np.unique(c_conf))/2, 1))</span>
 
         <span class="k">if</span> <span class="n">separate_by_category</span><span class="p">:</span>
             <span class="n">counts0_</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">c_conf</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">stimuli</span><span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nsubjects</span><span class="p">)]</span>
