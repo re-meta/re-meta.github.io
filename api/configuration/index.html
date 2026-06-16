@@ -953,7 +953,8 @@ shrinkage of individual random-effect estimates toward the group mean.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 1
+	enable: True
+	asym: False
 	guess: 0.5
 	bounds: [0.001, 10]
 	grid_range: [0.1        0.22857143 0.35714286 0.48571429 0.61428571 0.74285714
@@ -980,7 +981,8 @@ shrinkage of individual random-effect estimates toward the group mean.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 0
 	bounds: [0, 1]
 	grid_range: [0.   0.05 0.1  0.15 0.2 ]
@@ -1006,7 +1008,8 @@ shrinkage of individual random-effect estimates toward the group mean.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 1
+	enable: True
+	asym: False
 	guess: 0
 	bounds: [-1, 1]
 	grid_range: [-0.2        -0.14285714 -0.08571429 -0.02857143  0.02857143  0.08571429
@@ -1033,7 +1036,8 @@ shrinkage of individual random-effect estimates toward the group mean.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 0
 	bounds: [-0.8888888888888888, 10]
 	grid_range: [-0.5   -0.125  0.25   0.625  1.   ]
@@ -1059,7 +1063,8 @@ shrinkage of individual random-effect estimates toward the group mean.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 1
 	bounds: [0.01, 10]
 	grid_range: [0.01   0.5075 1.005  1.5025 2.    ]
@@ -1087,7 +1092,8 @@ parameter. Default is <code>'multiplicative'</code>, which corresponds to Weber'
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 0
 	bounds: [0, 10]
 	grid_range: [0.   0.25 0.5  0.75 1.  ]
@@ -1114,7 +1120,8 @@ noisy-temperature model.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 1
+	enable: True
+	asym: False
 	guess: 0.1
 	bounds: [0.005, 2]
 	grid_range: [0.01       0.15142857 0.29285714 0.43428571 0.57571429 0.71714286
@@ -1123,6 +1130,33 @@ noisy-temperature model.</p>
 	prior: None
 	preset: None
 	default: 0.01
+	model: None
+	_definition_changed: False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>param_type2_criteria</code>
+            </td>
+            <td>
+                  <code><a class="autorefs autorefs-internal" title="remeta.modelspec.Parameter" href="../parameter/#remeta.modelspec.Parameter">Parameter</a></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Confidence criteria.</p>
+              </div>
+            </td>
+            <td>
+                  <code>Parameter
+	enable: True
+	asym: False
+	guess: equispaced
+	bounds: [1e-08, 1]
+	grid_range: equispaced
+	group: None
+	prior: None
+	preset: None
+	default: equispaced
 	model: None
 	_definition_changed: False</code>
             </td>
@@ -1141,7 +1175,8 @@ noisy-temperature model.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 1
 	bounds: [0.5, 2]
 	grid_range: [0.5        0.71428571 0.92857143 1.14285714 1.35714286 1.57142857
@@ -1168,7 +1203,8 @@ noisy-temperature model.</p>
             </td>
             <td>
                   <code>Parameter
-	enable: 0
+	enable: False
+	asym: False
 	guess: 1
 	bounds: [0.5, 2]
 	grid_range: [0.5        0.71428571 0.92857143 1.14285714 1.35714286 1.57142857
@@ -1177,32 +1213,6 @@ noisy-temperature model.</p>
 	prior: None
 	preset: None
 	default: 1
-	model: None
-	_definition_changed: False</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
-                <code>param_type2_criteria</code>
-            </td>
-            <td>
-                  <code><a class="autorefs autorefs-internal" title="remeta.modelspec.Parameter" href="../parameter/#remeta.modelspec.Parameter">Parameter</a></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>Confidence criteria.</p>
-              </div>
-            </td>
-            <td>
-                  <code>Parameter
-	enable: 3
-	guess: equispaced
-	bounds: [1e-08, 1]
-	grid_range: equispaced
-	group: None
-	prior: None
-	preset: None
-	default: equispaced
 	model: None
 	_definition_changed: False</code>
             </td>
@@ -1374,7 +1384,7 @@ fitted parameters. The likelihood of true parameters is returned (and printed).<
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>initilialize_fitting_at_true_params</code>
+                <code>initialize_fitting_at_true_params</code>
             </td>
             <td>
                   <code><span title="bool">bool</span></code>
@@ -1391,7 +1401,7 @@ have been passed via <code>true_params</code>.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>accept_mispecified_model</code>
+                <code>accept_misspecified_model</code>
             </td>
             <td>
                   <code><span title="bool">bool</span></code>
@@ -2017,47 +2027,7 @@ have been passed via <code>true_params</code>.</p>
 <span class="normal">594</span>
 <span class="normal">595</span>
 <span class="normal">596</span>
-<span class="normal">597</span>
-<span class="normal">598</span>
-<span class="normal">599</span>
-<span class="normal">600</span>
-<span class="normal">601</span>
-<span class="normal">602</span>
-<span class="normal">603</span>
-<span class="normal">604</span>
-<span class="normal">605</span>
-<span class="normal">606</span>
-<span class="normal">607</span>
-<span class="normal">608</span>
-<span class="normal">609</span>
-<span class="normal">610</span>
-<span class="normal">611</span>
-<span class="normal">612</span>
-<span class="normal">613</span>
-<span class="normal">614</span>
-<span class="normal">615</span>
-<span class="normal">616</span>
-<span class="normal">617</span>
-<span class="normal">618</span>
-<span class="normal">619</span>
-<span class="normal">620</span>
-<span class="normal">621</span>
-<span class="normal">622</span>
-<span class="normal">623</span>
-<span class="normal">624</span>
-<span class="normal">625</span>
-<span class="normal">626</span>
-<span class="normal">627</span>
-<span class="normal">628</span>
-<span class="normal">629</span>
-<span class="normal">630</span>
-<span class="normal">631</span>
-<span class="normal">632</span>
-<span class="normal">633</span>
-<span class="normal">634</span>
-<span class="normal">635</span>
-<span class="normal">636</span>
-<span class="normal">637</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
+<span class="normal">597</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@reset_dataclass_on_init</span>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">ReprMixin</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Configuration for the ReMeta toolbox</span>
@@ -2219,32 +2189,32 @@ have been passed via <code>true_params</code>.</p>
     <span class="c1">## Type 1</span>
 
     <span class="n">param_type1_noise</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Type 1 noise.&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type1_thresh</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Type 1 threshold.&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type1_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Type 1 bias.&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type1_nonlinear_gain</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">8</span> <span class="o">/</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Gain parameter for nonlinear encoding (higher values -&gt; stronger nonlinearity).&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type1_nonlinear_scale</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Scale parameter for the nonlinearity (higher values -&gt; non-linearity kicks in later).&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type1_noise_heteroscedastic</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;multiplicative&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">model</span><span class="o">=</span><span class="s1">&#39;multiplicative&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Signal-dependent type 1 noise. Specify the signal dependency via the `.model` attribute of the </span>
 <span class="s2">        parameter. Default is `&#39;multiplicative&#39;`, which corresponds to Weber&#39;s law with a noise floor. In this case, </span>
@@ -2255,25 +2225,25 @@ have been passed via <code>true_params</code>.</p>
     <span class="c1">## Type 2</span>
 
     <span class="n">param_type2_noise</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.005</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mf">0.01</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Metacognitive noise. May characterize metacognitive noise of either a noisy-readout, noisy-report or </span>
 <span class="s2">        noisy-temperature model.&quot;&quot;&quot;</span>
     <span class="p">})</span>
+    <span class="n">param_type2_criteria</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">grid_range</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">1e-8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+<span class="s2">        Confidence criteria.&quot;&quot;&quot;</span>
+    <span class="p">})</span>
     <span class="n">param_type2_evidence_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Parameter for a multiplicative metacognitive bias loading on evidence.&quot;&quot;&quot;</span>
     <span class="p">})</span>
     <span class="n">param_type2_confidence_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
         <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        Parameter for a power-law metacognitive bias loading on confidence.&quot;&quot;&quot;</span>
-    <span class="p">})</span>
-    <span class="n">param_type2_criteria</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span>
-        <span class="n">default</span><span class="o">=</span><span class="n">Parameter</span><span class="p">(</span><span class="n">enable</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">guess</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">grid_range</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;equispaced&#39;</span><span class="p">,</span> <span class="n">bounds</span><span class="o">=</span><span class="p">[</span><span class="mf">1e-8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]),</span>
-        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
-<span class="s2">        Confidence criteria.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
 
@@ -2327,12 +2297,12 @@ have been passed via <code>true_params</code>.</p>
 <span class="s2">        fitted parameters. The likelihood of true parameters is returned (and printed).&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
-    <span class="n">initilialize_fitting_at_true_params</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+    <span class="n">initialize_fitting_at_true_params</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        If `True`, initialize the parameter fitting procedure at the true parameters. True parameters must </span>
 <span class="s2">        have been passed via `true_params`.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
-    <span class="n">accept_mispecified_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
+    <span class="n">accept_misspecified_model</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="s2">&quot;&quot;&quot; </span>
 <span class="s2">        If `True`, ignore warnings about user-specified settings.&quot;&quot;&quot;</span>
     <span class="p">})</span>
 
@@ -2343,16 +2313,19 @@ have been passed via <code>true_params</code>.</p>
 
     <span class="c1">### Private attributes (do not change)</span>
 
+    <span class="n">_param_names_type1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">,</span> <span class="s1">&#39;noise_heteroscedastic&#39;</span><span class="p">,</span> <span class="s1">&#39;nonlinear_scale&#39;</span><span class="p">,</span> <span class="s1">&#39;nonlinear_gain&#39;</span><span class="p">,</span> <span class="s1">&#39;thresh&#39;</span><span class="p">)</span>
     <span class="n">_param_type1_noise</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_param_type1_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type1_noise_heteroscedastic</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type1_nonlinear_scale</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type1_nonlinear_gain</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type1_thresh</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_param_type1_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">_param_names_type2</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="s1">&#39;criteria&#39;</span><span class="p">,</span> <span class="s1">&#39;evidence_bias&#39;</span><span class="p">,</span> <span class="s1">&#39;confidence_bias&#39;</span><span class="p">)</span>
     <span class="n">_param_type2_noise</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_param_type2_criteria</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type2_evidence_bias</span><span class="p">:</span> <span class="n">Parameter</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_param_type2_confidence_bias</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_param_type2_criteria</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="n">_paramset_type1</span><span class="p">:</span> <span class="n">ParameterSet</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">_paramset_type2</span><span class="p">:</span> <span class="n">ParameterSet</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2404,7 +2377,7 @@ have been passed via <code>true_params</code>.</p>
 
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">model</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type2_noise_type</span> <span class="o">==</span> <span class="s1">&#39;report&#39;</span><span class="p">:</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;beta_mode&#39;</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="s1">&#39;truncated_normal_mode&#39;</span>
@@ -2430,9 +2403,12 @@ have been passed via <code>true_params</code>.</p>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">type2_binsize</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">type2_binsize</span> <span class="o">=</span> <span class="mf">0.01</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_params_all</span><span class="p">()</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_compatibility</span><span class="p">(</span><span class="n">generative_mode</span><span class="o">=</span><span class="n">generative_mode</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="n">silence_warnings</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
+            <span class="c1"># In case of confidence criteria, the final parameter set depends on the number of confidence</span>
+            <span class="c1"># levels and will only be determined during fitting (cf. _prepare_confidence_criteria())</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_params_all</span><span class="p">()</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_configuration</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">print</span><span class="p">()</span>
@@ -2440,7 +2416,7 @@ have been passed via <code>true_params</code>.</p>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_check_compatibility</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">generative_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept_mispecified_model</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept_misspecified_model</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type1_noise</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Type 1 noise must be enabled.&quot;</span><span class="p">)</span>
@@ -2471,32 +2447,29 @@ have been passed via <code>true_params</code>.</p>
                     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_evidence_bias</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
                         <span class="k">if</span> <span class="ow">not</span> <span class="n">silence_warnings</span><span class="p">:</span>
                             <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
-                                <span class="s1">&#39;Fitting type2_param_criteria in combination with type2_param_evidence_bias.enable=1</span><span class="se">\n</span><span class="s1">&#39;</span>
+                                <span class="s1">&#39;Fitting type2_param_criteria in combination with type2_param_evidence_bias.enable=True</span><span class="se">\n</span><span class="s1">&#39;</span>
                                 <span class="s1">&#39;can lead to biased parameter inferences. Use with caution.&#39;</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_params_type1</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># if self.paramset_type1 is None:</span>
 
-            <span class="n">param_names_type1</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="n">params_type1</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="s1">&#39;noise_heteroscedastic&#39;</span><span class="p">,</span> <span class="s1">&#39;nonlinear_gain&#39;</span><span class="p">,</span> <span class="s1">&#39;nonlinear_scale&#39;</span><span class="p">,</span> <span class="s1">&#39;thresh&#39;</span><span class="p">,</span> <span class="s1">&#39;bias&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params_type1</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
-                    <span class="n">param_names_type1</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
-                    <span class="c1"># if getattr(self, f&#39;_param_type1_{param}&#39;) is None:</span>
-                    <span class="n">param_definition</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-                        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">param_definition</span><span class="p">,</span> <span class="n">param_definition</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_names_type1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
+                <span class="c1"># if getattr(self, f&#39;_param_type1_{param}&#39;) is None:</span>
+                <span class="n">param_definition</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">asym</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">param_definition</span><span class="p">,</span> <span class="n">param_definition</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param_definition</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_fitting_at_true_params</span> <span class="ow">and</span> <span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">asym</span><span class="p">:</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
+                            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
                     <span class="k">else</span><span class="p">:</span>
-                        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param_definition</span><span class="p">)</span>
-                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initilialize_fitting_at_true_params</span> <span class="ow">and</span> <span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">:</span>
-                        <span class="k">if</span> <span class="p">(</span><span class="n">param_len</span> <span class="o">:=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">param_len</span><span class="p">):</span>
-                                <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
-                        <span class="k">else</span><span class="p">:</span>
-                            <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
+                        <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
 
-            <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;_param_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param_names_type1</span><span class="p">}</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type1</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">param_names_type1</span><span class="p">)</span>
+        <span class="n">param_names_type1</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type1_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_names_type1</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type1_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">]</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;_param_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param_names_type1</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type1</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">param_names_type1</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_params_type2</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
@@ -2555,83 +2528,66 @@ have been passed via <code>true_params</code>.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">grid_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                                                                    <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_noise</span><span class="o">.</span><span class="n">bounds</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mi">10</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-        <span class="n">param_names_type2</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="n">params_type2</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="s1">&#39;evidence_bias&#39;</span><span class="p">,</span> <span class="s1">&#39;confidence_bias&#39;</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params_type2</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_names_type2</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
-                <span class="n">param_names_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
                 <span class="c1"># if getattr(self, f&#39;_param_type2_{param}&#39;) is None:</span>
                 <span class="n">param_definition</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">param_definition</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initilialize_fitting_at_true_params</span> <span class="ow">and</span> <span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">initialize_fitting_at_true_params</span> <span class="ow">and</span> <span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">:</span>
                     <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">guess</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">param</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">]</span>
 
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">if</span> <span class="n">listlike</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span> <span class="o">+</span> <span class="mi">1</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">preset</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="mf">1e-10</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;param_type2_criteria.preset must either be a list of criteria or &#39;</span>
-                                 <span class="s1">&#39;an integer indicating the number of (equispaced) criteria.&#39;</span><span class="p">)</span>
-
-
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span> <span class="o">+</span> <span class="mi">1</span>
-            <span class="n">param_names_type2</span> <span class="o">+=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">]</span>
-            <span class="n">initialize_true</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initilialize_fitting_at_true_params</span> <span class="ow">and</span>
-                               <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;type2_criteria&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">)</span>
-
-            <span class="c1"># internally, we handle criteria as criterion gaps!</span>
-            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type2_criteria&#39;</span><span class="p">,</span>
-                    <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span>
-                       <span class="n">guess</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">initialize_true</span>
-                                <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">guess</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span>
-                                      <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_guesses</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
-                       <span class="n">bounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span>
-                       <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">if</span>
-                       <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">grid_range</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_grid_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
-                       <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">default</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_default</span><span class="p">,</span>
-                    <span class="p">)</span>
-                     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
-                    <span class="p">)</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-                    <span class="c1"># if &#39;type2_criteria&#39; not in self.true_params:</span>
-                    <span class="c1">#     raise ValueError(&#39;type2_criteria are missing from cfg.true_params&#39;)</span>
                     <span class="k">if</span> <span class="s1">&#39;type2_criteria&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">:</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                            <span class="c1"># type2_criteria_absolute=[np.sum(self.true_params[&#39;type2_criteria&#39;][:i+1]) for i in range(len(self.true_params[&#39;type2_criteria&#39;]))],</span>
                             <span class="n">type2_criteria_bias</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span>
                             <span class="n">type2_criteria_bias_sem</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                             <span class="n">type2_criteria_confidence_bias</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">]),</span>
-                            <span class="c1"># type2_criteria_bias_mult=np.mean(self.true_params[&#39;type2_criteria&#39;]) / 0.5,</span>
-                            <span class="c1"># type2_criteria_confidence_bias_mult=np.mean(self.true_params[&#39;type2_criteria&#39;]) / 0.5,</span>
-                            <span class="c1"># type2_criteria_absdev=round(np.abs(np.array(self.true_params[&#39;type2_criteria&#39;]) -</span>
-                            <span class="c1">#         np.arange(1/self._n_conf_levels, 1-1e-10, 1/self._n_conf_levels)).mean(), 10)</span>
                         <span class="p">)</span>
                 <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
                     <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">)):</span>
-                        <span class="c1"># if &#39;type2_criteria&#39; not in self.true_params[s]:</span>
-                        <span class="c1">#     raise ValueError(f&#39;type2_criteria are missing from cfg.true_params (subject {s})&#39;)</span>
                         <span class="k">if</span> <span class="s1">&#39;type2_criteria&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="n">s</span><span class="p">]:</span>
                             <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-                                <span class="c1"># type2_criteria_absolute=[np.sum(self.true_params[s][&#39;type2_criteria&#39;][:i+1]) for i in range(len(self.true_params[s][&#39;type2_criteria&#39;]))],</span>
                                 <span class="n">type2_criteria_bias</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">,</span>
                                 <span class="n">type2_criteria_bias_sem</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
                                 <span class="n">type2_criteria_confidence_bias</span><span class="o">=</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="n">s</span><span class="p">][</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">]),</span>
-                                <span class="c1"># type2_criteria_absdev=round(np.abs(np.array(self.true_params[s][&#39;type2_criteria&#39;]) -</span>
-                                <span class="c1">#     np.arange(1/self._n_conf_levels, 1-1e-10, 1/self._n_conf_levels)).mean())</span>
                             <span class="p">)</span>
 
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">enable</span><span class="p">:</span>
+            <span class="c1"># In case of confidence criteria, the final parameter set depends on the number of confidence</span>
+            <span class="c1"># levels and will only be determined during fitting (cf. _prepare_confidence_criteria())</span>
+            <span class="n">param_names_type2</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_names_type2</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type2_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">]</span>
+            <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;_param_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param_names_type2</span><span class="p">}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type2</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">param_names_type2</span><span class="p">)</span>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_confidence_criteria</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_ratings</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">n_ratings</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;The number of confidence ratings cannot be None&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">=</span> <span class="n">n_ratings</span>
+
+        <span class="n">initialize_true</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initialize_fitting_at_true_params</span> <span class="ow">and</span>
+                           <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="s1">&#39;type2_criteria&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">)</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;_param_type2_criteria&#39;</span><span class="p">,</span>
+                <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span>
+                   <span class="n">guess</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">true_params</span><span class="p">[</span><span class="s1">&#39;type2_criteria&#39;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">initialize_true</span>
+                            <span class="k">else</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">guess</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span>
+                                  <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_guesses</span><span class="p">[</span><span class="n">i</span><span class="p">]),</span>
+                   <span class="n">bounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span>
+                   <span class="n">grid_range</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mi">2</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span> <span class="k">if</span>
+                   <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">grid_range</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_grid_ranges</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                   <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria</span><span class="o">.</span><span class="n">default</span> <span class="o">==</span> <span class="s1">&#39;equispaced&#39;</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_type2_criteria_default</span><span class="p">,</span>
+                <span class="p">)</span>
+                 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n_conf_levels</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+                <span class="p">)</span>
+
+        <span class="n">param_names_type2</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s1">&#39;type2_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_names_type2</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;param_type2_</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">enable</span><span class="p">]</span>
         <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;_param_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">param_names_type2</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type2</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">parameters</span><span class="p">,</span> <span class="n">param_names_type2</span><span class="p">)</span>
-
-
-        <span class="bp">self</span><span class="o">.</span><span class="n">check_type2_constraints</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_params_all</span><span class="p">()</span>
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_prepare_params_all</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2642,29 +2598,6 @@ have been passed via <code>true_params</code>.</p>
             <span class="n">parameters_all</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">parameters</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type2</span><span class="o">.</span><span class="n">parameters</span><span class="p">}</span>
             <span class="n">param_names_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">param_names</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_paramset_type2</span><span class="o">.</span><span class="n">param_names</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_paramset</span> <span class="o">=</span> <span class="n">ParameterSet</span><span class="p">(</span><span class="n">parameters_all</span><span class="p">,</span> <span class="n">param_names_all</span><span class="p">)</span>
-            <span class="c1"># for k, attr in self.paramset_type2.__dict__.items():</span>
-            <span class="c1">#     attr_old = getattr(self.paramset, k)</span>
-            <span class="c1">#     if isinstance(attr, list):</span>
-            <span class="c1">#         attr_new = attr_old + attr</span>
-            <span class="c1">#     elif isinstance(attr, dict):</span>
-            <span class="c1">#         attr_new = {**attr_old, **attr}</span>
-            <span class="c1">#     elif isinstance(attr, np.ndarray):</span>
-            <span class="c1">#         if attr.ndim == 1:</span>
-            <span class="c1">#             attr_new = np.hstack((attr_old, attr))</span>
-            <span class="c1">#         else:</span>
-            <span class="c1">#             attr_new = np.vstack((attr_old, attr))</span>
-            <span class="c1">#     elif isinstance(attr, int):</span>
-            <span class="c1">#         attr_new = attr_old + attr</span>
-            <span class="c1">#     elif attr is None:</span>
-            <span class="c1">#         if attr_old is None:</span>
-            <span class="c1">#             attr_new = None</span>
-            <span class="c1">#         else:</span>
-            <span class="c1">#             raise ValueError(f&#39;Type 2 attribute is None, but type 1 attribute is not.&#39;)</span>
-            <span class="c1">#     else:</span>
-            <span class="c1">#         raise ValueError(f&#39;Unexpected type {type(attr)}&#39;)</span>
-            <span class="c1">#     setattr(self.paramset, k, attr_new)</span>
-
-
 
 
     <span class="k">def</span><span class="w"> </span><span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2679,9 +2612,6 @@ have been passed via <code>true_params</code>.</p>
         <span class="n">txt</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span>
         <span class="n">txt</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\t</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()])</span>
         <span class="k">return</span> <span class="n">txt</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">check_type2_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span>
 </code></pre></div></td></tr></table></div>
               </details>
 

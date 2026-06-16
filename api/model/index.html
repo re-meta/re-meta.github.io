@@ -833,7 +833,7 @@ rem = remeta.ReMeta(cfg)
 <details class="usage" open>
   <summary>Usage</summary>
   <pre><code>rem = ReMeta()
-rem.fit(stimuli, choices, confidence)
+rem.fit(stimuli, choices, confidence, [n_ratings, ...])
 </code></pre>
 </details>
 
@@ -910,6 +910,22 @@ rem.fit(stimuli, choices, confidence)
             </td>
             <td>
                   <code>False</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>n_ratings</code>
+            </td>
+            <td>
+                  <code><span title="int">int</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Numer of discrete confidence ratings (only relevant if modeling of confidence criteria is enabled)</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
             </td>
           </tr>
           <tr class="doc-section-item">
@@ -1009,11 +1025,14 @@ rem.fit(stimuli, choices, confidence)
 <span class="normal">113</span>
 <span class="normal">114</span>
 <span class="normal">115</span>
-<span class="normal">116</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">stimuli</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">choices</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
     <span class="n">confidence</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">n_ratings</span> <span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">linearize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">linearize_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbosity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
@@ -1024,7 +1043,7 @@ rem.fit(stimuli, choices, confidence)
 <span class="sd">    Usage:</span>
 <span class="sd">        ```</span>
 <span class="sd">        rem = ReMeta()</span>
-<span class="sd">        rem.fit(stimuli, choices, confidence)</span>
+<span class="sd">        rem.fit(stimuli, choices, confidence, [n_ratings, ...])</span>
 <span class="sd">        ```</span>
 
 <span class="sd">    Args:</span>
@@ -1032,6 +1051,7 @@ rem.fit(stimuli, choices, confidence)
 <span class="sd">        choices: 1d or 2d array or list of choices (coded as -1/1 or 0/1)</span>
 <span class="sd">        confidence: 1d or 2d array or list of confidence ratings (normalized to the range 0-1)</span>
 <span class="sd">        linearize: Perform stimulus linearization</span>
+<span class="sd">        n_ratings: Numer of discrete confidence ratings (only relevant if modeling of confidence criteria is enabled)</span>
 <span class="sd">        linearize_kwargs: Keyword arguments for stimulus linearization</span>
 <span class="sd">        verbosity: verbosity level (possible values: 0, 1, 2)</span>
 <span class="sd">        silence_warnings: if `True`, warnings during model fitting are supressed.</span>
@@ -1045,12 +1065,12 @@ rem.fit(stimuli, choices, confidence)
 
     <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">Summary</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">)</span>
 
-    <span class="bp">self</span><span class="o">.</span><span class="n">fit_type1</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">store_final_results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">skip_type2</span><span class="p">,</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fit_type1</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">_store_final_results</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">skip_type2</span><span class="p">,</span>
                    <span class="n">silence_warnings</span><span class="o">=</span><span class="n">silence_warnings</span><span class="p">,</span>
                    <span class="n">_called_from_fit</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">skip_type2</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fit_type2</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="n">silence_warnings</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fit_type2</span><span class="p">(</span><span class="n">n_ratings</span><span class="o">=</span><span class="n">n_ratings</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="n">verbosity</span><span class="p">,</span> <span class="n">silence_warnings</span><span class="o">=</span><span class="n">silence_warnings</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="bp">self</span>
 </code></pre></div></td></tr></table></div>
@@ -1137,23 +1157,6 @@ rem.fit_type1(stimuli, choices)
           </tr>
           <tr class="doc-section-item">
             <td>
-                <code>store_final_results</code>
-            </td>
-            <td>
-                  <code><span title="bool">bool</span></code>
-            </td>
-            <td>
-              <div class="doc-md-description">
-                <p>if <code>True</code>, save final results. Mostly used internally - will be set to <code>False</code>,
-if followed by <code>fit_type2</code>.</p>
-              </div>
-            </td>
-            <td>
-                  <code>True</code>
-            </td>
-          </tr>
-          <tr class="doc-section-item">
-            <td>
                 <code>linearize</code>
             </td>
             <td>
@@ -1218,6 +1221,23 @@ if followed by <code>fit_type2</code>.</p>
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>_store_final_results</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>if <code>True</code>, save final results. Internal parameter - will be set to <code>False</code>,
+if followed by <code>fit_type2</code>.</p>
+              </div>
+            </td>
+            <td>
+                  <code>True</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>_called_from_fit</code>
             </td>
             <td>
@@ -1238,9 +1258,7 @@ if followed by <code>fit_type2</code>.</p>
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">140</span>
-<span class="normal">141</span>
-<span class="normal">142</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">142</span>
 <span class="normal">143</span>
 <span class="normal">144</span>
 <span class="normal">145</span>
@@ -1384,16 +1402,18 @@ if followed by <code>fit_type2</code>.</p>
 <span class="normal">283</span>
 <span class="normal">284</span>
 <span class="normal">285</span>
-<span class="normal">286</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit_type1</span><span class="p">(</span>
+<span class="normal">286</span>
+<span class="normal">287</span>
+<span class="normal">288</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">fit_type1</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">stimuli</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">choices</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">confidence</span><span class="p">:</span> <span class="kc">None</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]</span>  <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">typing</span><span class="o">.</span><span class="n">NDArray</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">store_final_results</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">linearize</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">linearize_kwargs</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">verbosity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">silence_warnings</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">_store_final_results</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">_called_from_fit</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -1408,12 +1428,12 @@ if followed by <code>fit_type2</code>.</p>
 <span class="sd">        stimuli: 1d or 2d array or list of signed stimulus intensities</span>
 <span class="sd">        choices: 1d or 2d array or list of choices (coded as -1/1 or 0/1)</span>
 <span class="sd">        confidence: 1d or 2d array or list of confidence ratings (normalized to the range 0-1)</span>
-<span class="sd">        store_final_results: if `True`, save final results. Mostly used internally - will be set to `False`,</span>
-<span class="sd">            if followed by `fit_type2`.</span>
 <span class="sd">        linearize: Perform stimulus linearization</span>
 <span class="sd">        linearize_kwargs: Keyword arguments for stimulus linearization</span>
 <span class="sd">        verbosity: verbosity level (possible values: 0, 1, 2)</span>
 <span class="sd">        silence_warnings: if `True`, warnings during model fitting are supressed.</span>
+<span class="sd">        _store_final_results: if `True`, save final results. Internal parameter - will be set to `False`,</span>
+<span class="sd">            if followed by `fit_type2`.</span>
 <span class="sd">        _called_from_fit: internal variable passed by self.fit()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1428,12 +1448,12 @@ if followed by <code>fit_type2</code>.</p>
                                         <span class="n">silence_warnings</span><span class="o">=</span><span class="n">silence_warnings</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">verbosity</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dataset characteristics:&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1">No. subjects: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s2">No. samples: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsamples</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span><span class="w"> </span><span class="n">separator</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1">No. subjects: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s2">No. samples: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">array2string</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_samples</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(),</span><span class="w"> </span><span class="n">separator</span><span class="o">=</span><span class="s1">&#39;, &#39;</span><span class="p">,</span><span class="w"> </span><span class="n">threshold</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1">Accuracy: </span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">accuracy</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">% correct&#39;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s2">d&#39;: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">dprime</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s2">Choice bias: </span><span class="si">{</span><span class="mi">100</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">choice_bias</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">skip_type2</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">store_final_results</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">skip_type2</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">_store_final_results</span><span class="p">:</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s2">Mean confidence: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">mean_confidence</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> &quot;</span>
                   <span class="sa">f</span><span class="s2">&quot;(min: </span><span class="si">{</span><span class="nb">min</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">c_conf</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">,&quot;</span>
                   <span class="sa">f</span><span class="s2">&quot; max: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">c_conf</span><span class="p">))</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
@@ -1449,17 +1469,17 @@ if followed by <code>fit_type2</code>.</p>
                                         <span class="s1">&#39;as zero instead of using quasi-Newton approximations.&#39;</span><span class="p">)</span>
 
         <span class="n">fits_type1_subject</span><span class="p">,</span> <span class="n">fit_type1_group</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">nparams</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">n_params</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
 
             <span class="k">if</span> <span class="n">verbosity</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">SP2</span><span class="si">}</span><span class="s1">Subject-level estimation (MLE)&#39;</span><span class="p">)</span>
                 <span class="n">tind</span> <span class="o">=</span> <span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span>
 
             <span class="c1"># Single-subject fits via MLE</span>
-            <span class="n">use_multiproc_for_subject_loop</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_optim_num_cores</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span>
+            <span class="n">use_multiproc_for_subject_loop</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_optim_num_cores</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span> <span class="o">&gt;=</span> <span class="mi">8</span><span class="p">)</span>
             <span class="k">def</span><span class="w"> </span><span class="nf">subject_loop</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
-                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1"> Subject </span><span class="si">{</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">verbosity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1"> Subject </span><span class="si">{</span><span class="n">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1"> / </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
                 <span class="k">return</span> <span class="n">subject_estimation</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">compute_type1_negll</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">],</span>
                     <span class="n">gridsearch</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">optim_type1_gridsearch</span><span class="p">,</span>
@@ -1473,31 +1493,31 @@ if followed by <code>fit_type2</code>.</p>
                 <span class="p">)</span>
             <span class="k">if</span> <span class="n">use_multiproc_for_subject_loop</span><span class="p">:</span>
                 <span class="k">with</span> <span class="n">DillPool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_optim_num_cores</span><span class="p">)</span> <span class="k">as</span> <span class="n">pool</span><span class="p">:</span>
-                    <span class="n">fits_type1_subject</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">subject_loop</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">))</span>
+                    <span class="n">fits_type1_subject</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">subject_loop</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">fits_type1_subject</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)]</span>
-                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">):</span>
+                <span class="n">fits_type1_subject</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
+                <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">):</span>
                     <span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="n">subject_loop</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
             <span class="c1"># Store single-subject results</span>
-            <span class="n">params_subject</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)]</span>
-            <span class="n">params_hessian_subject</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">hessian</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)]</span>
+            <span class="n">params_subject</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">x</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
+            <span class="n">params_hessian_subject</span> <span class="o">=</span> <span class="p">[</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">hessian</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">type1</span><span class="o">.</span><span class="n">subject</span><span class="o">.</span><span class="n">store</span><span class="p">(</span>
                 <span class="s1">&#39;type1&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_type1_negll</span><span class="p">,</span> <span class="n">params_subject</span><span class="p">,</span>
                 <span class="n">hessian</span><span class="o">=</span><span class="n">params_hessian_subject</span><span class="p">,</span> <span class="n">fit</span><span class="o">=</span><span class="n">fits_type1_subject</span><span class="p">,</span>
-                <span class="n">execution_time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">execution_time</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)])</span>
+                <span class="n">execution_time</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">([</span><span class="n">fits_type1_subject</span><span class="p">[</span><span class="n">s</span><span class="p">]</span><span class="o">.</span><span class="n">execution_time</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)])</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">verbosity</span><span class="p">:</span>
                 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">TAB</span><span class="si">}</span><span class="s1">.. finished (</span><span class="si">{</span><span class="n">timeit</span><span class="o">.</span><span class="n">default_timer</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tind</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1"> secs).&#39;</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">idx_fe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">parameters_flat</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;fixed&#39;</span><span class="p">])</span>
-                <span class="n">idx_re</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">parameters_flat</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">idx_fe</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">_parameters_flat</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;fixed&#39;</span><span class="p">])</span>
+                <span class="n">idx_re</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">_parameters_flat</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">group</span> <span class="o">==</span> <span class="s1">&#39;random&#39;</span><span class="p">])</span>
                 <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx_fe</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">idx_re</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
 
                     <span class="n">fit_type1_group</span> <span class="o">=</span> <span class="n">group_estimation</span><span class="p">(</span>
                         <span class="n">fun</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">compute_type1_negll</span><span class="p">,</span>
-                        <span class="n">nsubjects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">,</span>
+                        <span class="n">n_subjects</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">,</span>
                         <span class="n">params_init</span><span class="o">=</span><span class="n">params_subject</span><span class="p">,</span>
                         <span class="n">bounds</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">_paramset_type1</span><span class="o">.</span><span class="n">bounds</span><span class="p">,</span>
                         <span class="n">idx_fe</span><span class="o">=</span><span class="n">idx_fe</span><span class="p">,</span>
@@ -1512,9 +1532,9 @@ if followed by <code>fit_type2</code>.</p>
                     <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">type1</span><span class="o">.</span><span class="n">init_group</span><span class="p">()</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">type1</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">store</span><span class="p">(</span>
                         <span class="s1">&#39;type1&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_type1_negll</span><span class="p">,</span>
-                        <span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)],</span>
-                        <span class="n">params_se</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x_se</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)],</span>
-                        <span class="n">params_cov</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x_cov</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">nsubjects</span><span class="p">)],</span>
+                        <span class="n">params</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)],</span>
+                        <span class="n">params_se</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x_se</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)],</span>
+                        <span class="n">params_cov</span><span class="o">=</span><span class="p">[</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x_cov</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">n_subjects</span><span class="p">)],</span>
                         <span class="n">pop_mean_sd</span><span class="o">=</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">x_re_pop_mean_sd</span><span class="p">,</span>
                         <span class="n">execution_time</span><span class="o">=</span><span class="n">fit_type1_group</span><span class="o">.</span><span class="n">execution_time</span>
                     <span class="p">)</span>
@@ -1524,7 +1544,7 @@ if followed by <code>fit_type2</code>.</p>
             <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">type1</span><span class="o">.</span><span class="n">report_fit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">type1_is_fitted</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="k">if</span> <span class="n">store_final_results</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">_store_final_results</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">store</span><span class="p">(</span><span class="n">store_type1_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">verbosity</span><span class="p">:</span>
@@ -1620,25 +1640,7 @@ rem.plot_psychometric()
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">913</span>
-<span class="normal">914</span>
-<span class="normal">915</span>
-<span class="normal">916</span>
-<span class="normal">917</span>
-<span class="normal">918</span>
-<span class="normal">919</span>
-<span class="normal">920</span>
-<span class="normal">921</span>
-<span class="normal">922</span>
-<span class="normal">923</span>
-<span class="normal">924</span>
-<span class="normal">925</span>
-<span class="normal">926</span>
-<span class="normal">927</span>
-<span class="normal">928</span>
-<span class="normal">929</span>
-<span class="normal">930</span>
-<span class="normal">931</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">931</span>
 <span class="normal">932</span>
 <span class="normal">933</span>
 <span class="normal">934</span>
@@ -1647,7 +1649,25 @@ rem.plot_psychometric()
 <span class="normal">937</span>
 <span class="normal">938</span>
 <span class="normal">939</span>
-<span class="normal">940</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_psychometric</span><span class="p">(</span>
+<span class="normal">940</span>
+<span class="normal">941</span>
+<span class="normal">942</span>
+<span class="normal">943</span>
+<span class="normal">944</span>
+<span class="normal">945</span>
+<span class="normal">946</span>
+<span class="normal">947</span>
+<span class="normal">948</span>
+<span class="normal">949</span>
+<span class="normal">950</span>
+<span class="normal">951</span>
+<span class="normal">952</span>
+<span class="normal">953</span>
+<span class="normal">954</span>
+<span class="normal">955</span>
+<span class="normal">956</span>
+<span class="normal">957</span>
+<span class="normal">958</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_psychometric</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">sub_ind</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">model_prediction</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -1764,25 +1784,7 @@ rem.plot_stimulus_versus_confidence()
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">942</span>
-<span class="normal">943</span>
-<span class="normal">944</span>
-<span class="normal">945</span>
-<span class="normal">946</span>
-<span class="normal">947</span>
-<span class="normal">948</span>
-<span class="normal">949</span>
-<span class="normal">950</span>
-<span class="normal">951</span>
-<span class="normal">952</span>
-<span class="normal">953</span>
-<span class="normal">954</span>
-<span class="normal">955</span>
-<span class="normal">956</span>
-<span class="normal">957</span>
-<span class="normal">958</span>
-<span class="normal">959</span>
-<span class="normal">960</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">960</span>
 <span class="normal">961</span>
 <span class="normal">962</span>
 <span class="normal">963</span>
@@ -1791,7 +1793,25 @@ rem.plot_stimulus_versus_confidence()
 <span class="normal">966</span>
 <span class="normal">967</span>
 <span class="normal">968</span>
-<span class="normal">969</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
+<span class="normal">969</span>
+<span class="normal">970</span>
+<span class="normal">971</span>
+<span class="normal">972</span>
+<span class="normal">973</span>
+<span class="normal">974</span>
+<span class="normal">975</span>
+<span class="normal">976</span>
+<span class="normal">977</span>
+<span class="normal">978</span>
+<span class="normal">979</span>
+<span class="normal">980</span>
+<span class="normal">981</span>
+<span class="normal">982</span>
+<span class="normal">983</span>
+<span class="normal">984</span>
+<span class="normal">985</span>
+<span class="normal">986</span>
+<span class="normal">987</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_stimulus_versus_confidence</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">sub_ind</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">model_prediction</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -1908,33 +1928,33 @@ rem.plot_confidence_histogram()
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>remeta/model.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">971</span>
-<span class="normal">972</span>
-<span class="normal">973</span>
-<span class="normal">974</span>
-<span class="normal">975</span>
-<span class="normal">976</span>
-<span class="normal">977</span>
-<span class="normal">978</span>
-<span class="normal">979</span>
-<span class="normal">980</span>
-<span class="normal">981</span>
-<span class="normal">982</span>
-<span class="normal">983</span>
-<span class="normal">984</span>
-<span class="normal">985</span>
-<span class="normal">986</span>
-<span class="normal">987</span>
-<span class="normal">988</span>
-<span class="normal">989</span>
-<span class="normal">990</span>
-<span class="normal">991</span>
-<span class="normal">992</span>
-<span class="normal">993</span>
-<span class="normal">994</span>
-<span class="normal">995</span>
-<span class="normal">996</span>
-<span class="normal">997</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 989</span>
+<span class="normal"> 990</span>
+<span class="normal"> 991</span>
+<span class="normal"> 992</span>
+<span class="normal"> 993</span>
+<span class="normal"> 994</span>
+<span class="normal"> 995</span>
+<span class="normal"> 996</span>
+<span class="normal"> 997</span>
+<span class="normal"> 998</span>
+<span class="normal"> 999</span>
+<span class="normal">1000</span>
+<span class="normal">1001</span>
+<span class="normal">1002</span>
+<span class="normal">1003</span>
+<span class="normal">1004</span>
+<span class="normal">1005</span>
+<span class="normal">1006</span>
+<span class="normal">1007</span>
+<span class="normal">1008</span>
+<span class="normal">1009</span>
+<span class="normal">1010</span>
+<span class="normal">1011</span>
+<span class="normal">1012</span>
+<span class="normal">1013</span>
+<span class="normal">1014</span>
+<span class="normal">1015</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">plot_confidence_histogram</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">sub_ind</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">model_prediction</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
